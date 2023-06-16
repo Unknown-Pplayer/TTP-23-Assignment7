@@ -1,26 +1,23 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import axios from 'axios';
 
 const ZipSearch = () => {
-    const [zipCodeDataState, setzipCodeDataState] = useState();
-    // const [zipCode, setZipCodeState] = useState();
+    const [zipState, setZipState] = useState();
 
-    // useEffect(() => {
         async function fetchzipCodeData(zipCode) {
             try {
                 const dataResponse = await axios.get("https://zip-api.eu/api/v1/info/US-" + zipCode + "");
-                console.log(data);
-                // setzipCodeDataState(data);
-                // this.setState(list.data.results)
+                console.log(dataResponse);
+                const state = dataResponse.data.state;
+                console.log(state);
+                setZipState(state);
             } catch (error) {
                 console.error(error);
             }
         }
         
-    // }, );
     const handleSubmit = (event) => {
         event.preventDefault();
-        // setZipCodeState(event.target[0].value);
         const zipCode = event.target[0].value;
         fetchzipCodeData(zipCode);
     }
@@ -34,9 +31,7 @@ const ZipSearch = () => {
                 <input type="text" />
                 <button id="Submit" type="submit">Submit</button>
             </form>
-            {/* {zipCodeDataState.map(zipCodeData=>{
-                return <p>{zipCodeData.place_name}</p>
-            })} */}
+            <div>{zipState}</div>
         </div>
 
     );
