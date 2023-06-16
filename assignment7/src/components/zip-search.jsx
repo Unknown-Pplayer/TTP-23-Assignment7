@@ -3,6 +3,8 @@ import axios from 'axios';
 
 const ZipSearch = () => {
     const [zipState, setZipState] = useState();
+    const [zipCountry, setCountry] = useState();
+    const [zipCity, setCity] = useState();
 
         async function fetchzipCodeData(zipCode) {
             try {
@@ -11,6 +13,10 @@ const ZipSearch = () => {
                 const state = dataResponse.data.state;
                 console.log(state);
                 setZipState(state);
+                const zipCountry = dataResponse.data.country_code;
+                const zipCity = dataResponse.data.place_name;
+                setCountry(zipCountry);
+                setCity(zipCity);
             } catch (error) {
                 console.error(error);
             }
@@ -31,7 +37,9 @@ const ZipSearch = () => {
                 <input type="text" />
                 <button id="Submit" type="submit">Submit</button>
             </form>
-            <div>{zipState}</div>
+            <div>Country: {zipCountry}</div>
+            <div>State: {zipState}</div>
+            <div>City: {zipCity}</div>
         </div>
 
     );
